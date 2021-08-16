@@ -8,8 +8,9 @@ namespace App\Components;
 use App\Controllers\SiteController;
 
 class Router {
-    public function run()
+    public function run() :void
     {
+
         $controller = new SiteController();
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
 
@@ -18,7 +19,7 @@ class Router {
         }
 
         if($method == 'POST') {
-            $controller->score();
+            $controller->addComment();
         }
     }
 }

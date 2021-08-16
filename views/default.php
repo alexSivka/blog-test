@@ -1,146 +1,150 @@
-<?php
-/**
- * @var $values array
- * @var $totalScore
- * @var $showScore
- * @var $scoreResult
- * @var $errors
- */
-?>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta http-equiv="content-type" content="text/html" />
-    <title>Анкета</title>
-    <link rel="stylesheet" href="/views/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Blog page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/views/assets/css/blog.css" rel="stylesheet">
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="/views/assets/logo.jpg"> </a>
+        <div class="collapse navbar-collapse">
+            <div class="brand-name">
+                Копыта и рога
+            </div>
+        </div>
+    </div>
+</nav>
 
-<div class="main">
-    <h3>Анкета</h3>
-    <?php if($errors){ ?>
-        <div class="error">Ошибка при заполнении формы</div>
-    <? } ?>
-    <?php if($showScore && !$scoreResult){ ?>
-        <div class="error">Отказ в выдаче кредита</div>
-    <? } ?>
-    <?php if($showScore && $scoreResult){ ?>
-        <div class="success">Одобрение в выдаче кредита</div>
-    <? } ?>
-    <form method="post">
-        <div class="row">
-            <div>
-                <label>Фамилия*</label>
-                <input name="family" value="<?= $values['family'] ?>">
-            </div>
-            <div>
-                <label>Имя*</label>
-                <input name="name" value="<?= $values['name'] ?>">
-            </div>
+
+<!-- Page Content -->
+<div class="container" id="app">
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+
+            <!-- Title -->
+            <h1 class="mt-4">Филосовский пигмент</h1>
+
+            <hr>
+
+
+            <p>
+                Лидерство, согласно традиционным представлениям, взвешивает неорганический серный эфир.
+                Свежеприготовленный раствор испаряет фрагментарный белок. В заключении добавлю, гендер выбирает кетон.
+                При наступлении резонанса апперцепция осознаёт конформизм.
+                Автоматизм, как бы это ни казалось парадоксальным, радиоактивно сублимирует атом.
+                Большую роль в популяризации психодрамы сыграл институт социометрии, который индуцированное соответствие
+                параллельно.
+                Л.С.Выготский понимал тот факт, что голубой гель интуитивно понятен. Индикатор отчуждает газообразный
+                архетип.
+                Восприятие отражает энергетический подуровень.
+                При облучении инфракрасным лазером ригидность окисляет стимул.
+                Рефлексия передает контраст, где центры положительных и отрицательных зарядов совпадают.
+                Поглощение, в отличие от классического случая, традиционно ударяет девиантный фотоиндуцированный
+                энергетический перенос.
+                Наши исследования позволяют сделать вывод о том, что притяжение адсорбирует филосовский контраст.
+            </p>
+
+            <hr>
+
+            <!-- Comments Form -->
+            <comments inline-template>
+                <div>
+                    <div class="card my-4">
+                        <h5 class="card-header">Комментарий:</h5>
+                        <div class="card-body">
+                            <form
+                                    @submit.prevent="submit"
+                                    ref="form"
+                                    class="needs-validation"
+                                    novalidate
+                                    :class="{'was-validated': checked}"
+                            >
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Имя" v-model="form.name" required>
+                                    <div class="invalid-feedback" v-show="checked || errors.name">Заполните это поле</div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="email" placeholder="Email" v-model="form.email" required>
+                                    <div class="invalid-feedback" v-show="checked || errors.email">Заполните это поле</div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Заголовок" v-model="form.title" required>
+                                    <div class="invalid-feedback" v-show="checked || errors.title">Заполните это поле</div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" placeholder="Комментарий"
+                                              v-model="form.text" required></textarea>
+                                    <div class="invalid-feedback" v-show="checked || errors.text">Заполните это поле</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <div class="alert alert-success mt-3" v-show="success">Комментарий добавлен</div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0">Commenter Name</h5>
+                            first test
+                        </div>
+                    </div>
+
+                    <div class="media mb-4" v-for="(item, index) in comments" :key="index">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ item.name }}</h5>
+                            {{ item.text }}
+                        </div>
+                    </div>
+
+                </div>
+            </comments>
         </div>
-        <div class="row">
-            <div>
-                <label>Отчество*</label>
-                <input name="surname" value="<?= $values['surname'] ?>">
-            </div>
-            <div>
-                <label>Пол*</label>
-                <select name="sex">
-                    <option value="0">женщина</option>
-                    <option value="1" <?= $values['sex'] == 1 ? 'selected' : '' ?>>мужчина</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label>Дата рождения*</label>
-                <input
-                        value="<?= $values['birthday'] ?>"
-                        type="date"
-                        min="<?= date('Y-m-d', strtotime('-65 year')) ?>"
-                        max="<?= date('Y-m-d', strtotime('-14 year')) ?>"
-                        name="birthday"
-                >
-            </div>
-            <div>
-                <label>Количество несовершеннолетних детей*</label>
-                <select name="children">
-                    <?php
-                    for($i = 0; $i < 31; ++$i) { ?>
-                        <option value="<?= $i ?>" <?= $values['children'] == $i ? 'selected' : '' ?> ><?= $i ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label>Семейное положение*</label>
-                <select name="marital">
-                    <option value="0">холост/не замужем</option>
-                    <option value="1" <?= $values['marital'] == 1 ? 'selected' : '' ?> >женат/замужем</option>
-                </select>
-            </div>
-            <div>
-                <label>Ежемесячный доход*</label>
-                <input type="number" value="<?= $values['salary'] ?>" name="salary">
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label>Тип занятости*</label>
-                <select name="employment">
-                    <option value="0">не работаю</option>
-                    <option value="1" <?= $values['employment'] == 1 ? 'selected' : '' ?> >договор</option>
-                    <option value="2" <?= $values['employment'] == 2 ? 'selected' : '' ?> >самозанятый</option>
-                    <option value="3" <?= $values['employment'] == 3 ? 'selected' : '' ?> >индивидуальный предприниматель</option>
-                </select>
-            </div>
-            <div>
-                <label>Есть ли недвижимость*</label>
-                <input type="checkbox" <?= $values['real_estate'] ? 'checked' : '' ?> name="real_estate">
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label for="credit">Есть ли непогашенные кредиты*</label>
-                <input type="checkbox" id="credit" <?= $values['credit'] ? 'checked' : '' ?> name="credit">
-            </div>
-            <div>
-                <label for="debt">Есть ли задолженности по текущим кредитам*</label>
-                <input type="checkbox" disabled id="debt" <?= $values['debt'] ? 'checked' : '' ?> name="debt">
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label for="credit_price">Ежемесячная выплата по текущим кредитам*</label>
-                <input type="number" disabled id="credit_price" name="credit_price" value="<?= $values['credit_price'] ?>">
-            </div>
-            <div></div>
-        </div>
-        <div style="margin-top: 20px">
-            <button type="submit">Отправить</button>
-        </div>
-    </form>
-    score: <?= $totalScore ?>
+
+    </div>
+    <!-- /.row -->
+
 </div>
-<script>
-    const $credit = document.getElementById('credit');
-    $credit.onclick = () => checkCredit();
-    checkCredit();
+<!-- /.container -->
 
-    function checkCredit() {
-        let $debt = document.getElementById('debt');
-        let $credit_price = document.getElementById('credit_price');
-        if($credit.checked) {
-            $debt.disabled = false;
-            $credit_price.disabled = false;
-        } else {
-            $debt.disabled = true;
-            $credit_price.disabled = true;
-        }
-    }
-</script>
-
+<!--footer-->
+<footer>
+    <div class="container">
+        <a href="/" target="_blank" title="Twitter">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+            </span>
+            Twitter
+        </a>
+        <a href="https://github.com/alexSivka" target="_blank" title="GitHub">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+            GitHub
+        </a>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/views/assets/js/blog.js"></script>
 </body>
+
 </html>

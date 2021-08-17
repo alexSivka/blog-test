@@ -1,3 +1,6 @@
+/**
+ * component for comment form and comment list
+ */
 Vue.component('comments', {
     data() {
         return {
@@ -14,7 +17,29 @@ Vue.component('comments', {
         }
     },
 
+    async mounted() {
+        this.getComments();
+    },
+
     methods: {
+
+        /**
+         *
+         * @param sortDirection
+         * @returns {Promise<void>}
+         */
+        async getComments(sortDirection = 'desc') {
+            let res = await axios.get('/getComments', {
+                params: {
+                    direction: sortDirection
+                }
+            });
+            this.comments = res.data;
+        },
+
+        /**
+         * @returns {Promise<void>}
+         */
         async submit() {
             this.checked = false;
             this.errors = {};
@@ -37,8 +62,14 @@ Vue.component('comments', {
             this.comments.unshift(res.data.comment);
             this.clearForm();
             this.success = true;
+
+            setTimeout(() => this.success = false, 2000);
         },
 
+        /**
+         * clears comment form
+         * returns void
+         */
         clearForm() {
             Object.keys(this.form).forEach(key => this.form[key] = '');
         }

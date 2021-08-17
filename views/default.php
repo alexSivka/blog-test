@@ -97,18 +97,16 @@
                         </div>
                     </div>
 
-                    <div class="media mb-4">
-                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0">Commenter Name</h5>
-                            first test
-                        </div>
-                    </div>
+                    <button class="btn btn-sm btn-secondary ml-3" @click="getComments('desc')">Новые сверху</button>
+                    <button class="btn btn-sm btn-secondary" @click="getComments('asc')">Новые снизу</button>
+
+                    <hr>
 
                     <div class="media mb-4" v-for="(item, index) in comments" :key="index">
                         <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                         <div class="media-body">
-                            <h5 class="mt-0">{{ item.name }}</h5>
+                            <h5 class="mt-0">{{ item.name }} <small>{{ item.date }}</small> <small>{{ item.email }}</small></h5>
+                            <h6>{{ item.title }}</h6>
                             {{ item.text }}
                         </div>
                     </div>
